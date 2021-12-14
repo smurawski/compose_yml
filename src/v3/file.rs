@@ -4,7 +4,8 @@ use super::common::*;
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct File {
-    /// The version of the `docker-compose.yml` file format.  Must be 3.
+    /// Version of the docker-compose file.  This is a deprecated field in the v3 schema.
+    #[serde(default)]
     pub version: String,
 
     /// The individual services which make up this app.
@@ -109,7 +110,7 @@ impl File {
 impl Default for File {
     fn default() -> File {
         File {
-            version: "3".to_owned(),
+            version: "3".to_string(),
             services: Default::default(),
             volumes: Default::default(),
             networks: Default::default(),
@@ -181,17 +182,15 @@ fn file_allows_null_volumes_and_networks() {
     assert_eq!(file.networks.len(), 2);
 }
 
-// TODO: sjm - Update tests for new schema requirements
 #[test]
-#[ignore]
-fn file_checks_version_number() {
+fn file_does_not_check_version_number() {
     let yaml = r#"---
 "services":
   "foo":
     "build": "."
 "version": "100"
 "#;
-    assert!(File::from_str(&yaml).is_err());
+    assert_roundtrip!(File, yaml);
 }
 
 // TODO: Disabled pending https://github.com/emk/compose_yml/issues/11

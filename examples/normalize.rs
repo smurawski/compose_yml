@@ -1,7 +1,7 @@
 //! Parse a docker-compose.yml file and print it to standard output in
 //! normalized format.
 
-use compose_yml::v2 as dc;
+use compose_yml::v3 as dc;
 use std::io::{self, Write};
 
 fn normalize() -> dc::Result<()> {

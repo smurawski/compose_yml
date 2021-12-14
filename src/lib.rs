@@ -64,5 +64,4 @@
 // TODO V3 specific support - currently this is just the v2 parsing.
 
 pub mod errors;
-pub mod v2;
 pub mod v3;

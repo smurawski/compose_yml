@@ -6,7 +6,7 @@
 //! ```
 
 use anyhow::{anyhow, Result};
-use compose_yml::v2 as dc;
+use compose_yml::v3 as dc;
 use regex::Regex;
 use std::env;
 use std::io::{self, Write};
