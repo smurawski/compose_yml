@@ -258,6 +258,11 @@ pub struct Service {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     group_add: Vec<String>,
 
+    // TODO: Validate this setting
+    /// Adding some docs here would be good
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub platform: Option<RawOr<String>>,
+
     /// PRIVATE.  Mark this struct as having unknown fields for future
     /// compatibility.  This prevents direct construction and exhaustive
     /// matching.  This needs to be be public because of
@@ -294,6 +299,7 @@ derive_standard_impls_for!(Service, {
     networks,
     pid,
     ports,
+    platform,
     security_opt,
     stop_signal,
     ulimits,
